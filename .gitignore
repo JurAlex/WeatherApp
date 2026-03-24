@@ -1,0 +1,21 @@
+# Sensitive local config
+WeatherApp.Api/Web.config
+
+# Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# NuGet local packages cache
+packages/
+
+# Node / Angular build artifacts
+WeatherApp.Client/node_modules/
+WeatherApp.Client/.angular/
+WeatherApp.Client/dist/
+WeatherApp.Client/coverage/
+
+# Logs
+*.log

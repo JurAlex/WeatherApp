@@ -1,0 +1,70 @@
+<div class="weather-container">
+  @if (loading && !weatherData && !error) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Загрузка погоды...</p>
+  </div>
+  }
+
+  @if (error) {
+  <div class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadWeather()">Повторить</button>
+  </div>
+  }
+
+  @if (!loading) {
+  @if (weatherData; as data) {
+  <div class="weather-content">
+    <div class="current-weather">
+      <div class="section-title">
+        <h2>{{ data.current.city }}</h2>
+        <p>Актуальные данные на текущий момент</p>
+      </div>
+      <div class="current-main">
+        <img [src]="data.current.iconUrl" alt="weather icon" />
+        <div class="temp">{{ data.current.temperature }}°C</div>
+        <div class="condition">{{ data.current.conditionText }}</div>
+      </div>
+      <div class="details">
+        <div>Ветер: {{ data.current.windKph }} км/ч</div>
+        <div>Влажность: {{ data.current.humidity }}%</div>
+      </div>
+    </div>
+
+    <div class="hourly-forecast">
+      <div class="section-title">
+        <h3>Почасовой прогноз</h3>
+        <p>Прокрутите вправо, чтобы увидеть больше</p>
+      </div>
+      <div class="hourly-list" (wheel)="onHourlyWheel($event)">
+        @for (hour of data.hourlyForecast; track $index) {
+        <div class="hour-card">
+          <div class="hour-time">{{ hour.time }}</div>
+          <img [src]="hour.iconUrl" alt="icon" />
+          <div class="hour-temp">{{ hour.temperature }}°C</div>
+          <div class="hour-condition">{{ hour.conditionText }}</div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="daily-forecast">
+      <div class="section-title">
+        <h3>Прогноз на 3 дня</h3>
+      </div>
+      <div class="daily-list">
+        @for (day of data.dailyForecast; track $index) {
+        <div class="day-card">
+          <div class="day-name">{{ day.dayOfWeek }}</div>
+          <img [src]="day.iconUrl" alt="icon" />
+          <div class="day-temp">{{ day.maxTemp }}° / {{ day.minTemp }}°C</div>
+          <div class="day-condition">{{ day.conditionText }}</div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  }
+</div>
